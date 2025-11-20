@@ -132,6 +132,13 @@ To complete Epics faster, structure Beads for **maximum parallel agent execution
     - **Parallel (Fan-out)**: If Task A and B are independent, they both just block the Epic.
     - **Agent Swarm**: You can launch multiple terminal tabs, creating a `branchlet` for each Task, and run `/implement` in parallel.
 
+
+## 7. Context Hygiene
+To ensure maximum reliability and avoid context window pollution:
+- **Always start a new Amp thread** after running a slash command (e.g., after `/plan` finishes, start a new thread for `/implement`).
+- This ensures the agent focuses only on the current step's artifacts (`plan.md`, `research.md`) without being distracted by the conversation history of previous steps.
+- **Command Usage**: Slash commands populate the chat with a prompt template. **Always paste the Bead ID** at the end of the prompt (e.g., `/research bd-a1b2`) before sending.
+
 ## Summary of Tools
 | Tool | Purpose |
 | :--- | :--- |

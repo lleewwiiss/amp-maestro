@@ -96,6 +96,8 @@ If you have pushed this repo to GitHub, you can install it directly into any pro
 1.  **Start**: `amp`
 2.  **Pick Work**: `/bd-next` (or `/bd-create` for new ideas).
 3.  **Deep Work**: The agent will guide you through `/research` -> `/plan` -> `/implement`.
+    *   **Important**: Start a new Amp thread after each command to ensure clean context.
+    *   **Note**: Commands populate the chat with a prompt. **Paste the Bead ID** at the end of the command before sending.
 
 ## Requirements
 

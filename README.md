@@ -1,8 +1,8 @@
 # Amp Maestro
 
-Turn Sourcegraph Amp into a Senior Engineer. A production-ready workflow for planning, context management, and sub-agent orchestration.
+A structured workflow for Sourcegraph Amp designed for complex tasks. It adds planning, context management, and sub-agent orchestration.
 
-It utilizes **Beads** (Issue Tracking) and **Branchlet** (Worktrees) for state-of-the-art context engineering.
+It utilizes **Beads** (Issue Tracking) and **Branchlet** (Worktrees) to manage agent context and isolation.
 
 ## Philosophy
 

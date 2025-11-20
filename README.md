@@ -6,7 +6,25 @@ It utilizes **Beads** (Issue Tracking) and **Branchlet** (Worktrees) for state-o
 
 ## Philosophy
 
-This workflow implements the **"Frequent Intentional Compaction"** methodology championed by HumanLayer. It forces AI agents to behave like senior engineers:
+This workflow implements the **"Frequent Intentional Compaction"** methodology championed by HumanLayer.
+
+```mermaid
+graph LR
+    %% High Contrast / Dark Mode Friendly
+    classDef default fill:#2d2d2d,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef action fill:#005faf,stroke:#fff,stroke-width:2px,color:#fff;
+
+    Start([Start]) --> Plan
+    Plan["/plan"] --> Implement
+    Implement["/implement"] --> Merge([Merge])
+    
+    Implement -.-> Compact["/compact"]
+    Compact -.-> Implement
+
+    class Plan,Implement,Compact action;
+```
+
+It forces AI agents to behave like senior engineers:
 
 1.  **Research**: Understand the problem deeply before touching code.
 2.  **Plan**: Create a detailed, architectural plan (with Oracle reasoning).

@@ -4,6 +4,11 @@ This protocol defines the mandatory workflow for AI agents (Amp) working in this
 
 ```mermaid
 graph TD
+    %% Styling for Dark Mode readability
+    classDef default fill:#2d2d2d,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef decision fill:#8b4500,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef startend fill:#005faf,stroke:#fff,stroke-width:2px,color:#fff;
+
     Start([User Identifies Need]) --> Ideation
     
     subgraph "1. Ideation & Triage"
@@ -25,19 +30,19 @@ graph TD
         Research["/research"]
         Plan["/plan (Oracle)"]
         Approve{Human Approve?}
-        Split["/split (Optional)"]
     end
     Context --> Research
     Research --> Plan
     Plan --> Approve
     Approve -- No --> Plan
-    Approve -- Yes --> Split
     
     subgraph "4. Implementation"
+        Split["/split (Optional)"]
         Implement["/implement (Sub-agents)"]
         Compact["/compact (Save Session)"]
         Verify{Tests Pass?}
     end
+    Approve -- Yes --> Split
     Split --> Implement
     Approve -- Yes --> Implement
     Implement --> Compact
@@ -54,10 +59,8 @@ graph TD
     Land --> Merge
     Merge --> Cleanup
     
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Backlog fill:#eee,stroke:#333,stroke-width:2px
-    style Approve fill:#ff9,stroke:#333,stroke-width:2px
-    style Verify fill:#ff9,stroke:#333,stroke-width:2px
+    class Start,Merge,Cleanup startend;
+    class Approve,Verify decision;
 ```
 
 ## 1. Ideation & Triage (Human + Agent)

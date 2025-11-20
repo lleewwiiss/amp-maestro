@@ -102,3 +102,4 @@ If you have pushed this repo to GitHub, you can install it directly into any pro
 *   `git`
 *   `npm` / `pnpm` (for branchlet)
 *   `amp` CLI installed
+*   [Context7 MCP](https://github.com/upstash/context7) (Recommended for `/research` and library docs)

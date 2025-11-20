@@ -58,20 +58,20 @@ It enforces a structured process:
 
 ## Installation
 
-### Option 1: Local Install (Recommended)
-Clone this repo and run the install script:
+### Option 1: Quick Install (Recommended)
+Run this command in the root of any project where you want to use Amp Maestro:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/lleewwiiss/amp-maestro/main/install.sh)"
+```
+
+### Option 2: Developer Install (From Source)
+Use this if you are contributing to Amp Maestro or want to install from a local copy:
 
 ```bash
 git clone https://github.com/lleewwiiss/amp-maestro.git
 cd amp-maestro
 ./install.sh
-```
-
-### Option 2: Remote Install
-If you have pushed this repo to GitHub, you can install it directly into any project:
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/lleewwiiss/amp-maestro/main/install.sh)"
 ```
 
 ## What it installs

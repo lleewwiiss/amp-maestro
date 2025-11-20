@@ -8,7 +8,6 @@ Use this when the human wants to “land the plane” on the current work sessio
 Follow this checklist:
 
 1. **Inventory current work**
-
    - Summarize:
      - Which bead(s) you’ve been working on.
      - What changes you’ve made (code, config, tests, docs).

@@ -29,8 +29,6 @@ graph TD
     subgraph "3. Agent Loop"
         Research["/research"]:::amp --> Plan["/plan"]:::amp
         Plan --> Implement["/implement"]:::amp
-        Implement -.-> Compact["/compact"]:::amp
-        Compact -.-> Implement
     end
     
     subgraph "4. Ship"
@@ -83,7 +81,6 @@ If you have pushed this repo to GitHub, you can install it directly into any pro
     *   `/research`: Deep context gathering (Librarian/MCP).
     *   `/plan`: Oracle-powered implementation planning.
     *   `/implement`: Manager/Worker implementation loop.
-    *   `/compact`: Session summarization and git hygiene.
     *   `/review`: Plan vs. Implementation verification.
     *   `/land-plane`: Final pre-merge checklist.
 

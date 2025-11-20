@@ -39,14 +39,11 @@ graph TD
     subgraph "4. Implementation"
         Split["/split (Optional)"]
         Implement["/implement (Sub-agents)"]
-        Compact["/compact (Save Session)"]
         Verify{Tests Pass?}
     end
     Approve -- Yes --> Split
     Split --> Implement
     Approve -- Yes --> Implement
-    Implement --> Compact
-    Compact --> Implement
     Implement --> Verify
     Verify -- No --> Implement
     
@@ -99,15 +96,11 @@ graph TD
   - Acts as **Manager**.
   - Spawns **Subagents (Task tool)** for each plan step (edit/test).
   - Updates Bead status to `in_progress`.
-- **Compaction**: Every ~30 mins or milestone, run `/compact bd-a1b2`.
-  - Summarizes session to `.beads/artifacts/bd-a1b2/sessions/`.
-  - Updates Bead `Session History`.
   - Keeps context window clean.
 
 ## 5. Review & Merge (Agent + Human)
 - **Trigger**: Implementation complete, tests pass (`pnpm run check`).
 - **Agent Action**: Run `/land-plane`.
-  - Final `/compact`.
   - Runs linters/tests one last time.
   - `bd sync` to save issue state.
   - Pushes branch to remote.

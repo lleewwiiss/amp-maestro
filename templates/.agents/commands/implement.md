@@ -26,13 +26,7 @@ Workflow:
      - **Visualize**: If changes are complex, generate a **Mermaid diagram** to confirm understanding before editing.
    - Subagent Output: A concise summary of files changed, decisions made, and test results.
 
-3. **Compaction Loop**
-   - After every 2-3 steps or ~30 minutes:
-     - Run `/compact <bead-id>`.
-     - This summarizes recent subagent work into `.beads/artifacts/<bead-id>/sessions/`.
-     - Keeps the main thread context clean.
-
-4. **Reflect Reality & Cleanup**
+3. **Reflect Reality & Cleanup**
    - If subagents discover new work:
      - **STOP**. Ask to file a new Bead (`bd create ... --deps discovered-from:<bead-id>`).
    - If a step is harder than expected:
@@ -42,7 +36,7 @@ Workflow:
      - Check for leftover `TODO` comments (file new beads for them if needed).
      - **Visualize**: If changes were complex, ask to run `/architect` to update diagrams.
 
-   5. **Completion**
+   4. **Completion**
    - When all steps are done and verified:
      - Update Bead status to `ready_for_review`.
      - Run `/land-plane` for final checks.

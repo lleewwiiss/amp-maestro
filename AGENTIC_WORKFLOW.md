@@ -2,6 +2,64 @@
 
 This protocol defines the mandatory workflow for AI agents (Amp) working in this repository. It integrates **Beads** (Issue Tracking), **Branchlet** (Worktrees), and **Slash Commands** (HumanLayer Protocol).
 
+```mermaid
+graph TD
+    Start([User Identifies Need]) --> Ideation
+    
+    subgraph "1. Ideation & Triage"
+        Ideation["/bd-create"]
+        Backlog[("Bead Backlog")]
+    end
+    Ideation --> Backlog
+    
+    subgraph "2. Setup & Context"
+        PickWork["/bd-next or Pick from Backlog"]
+        Worktree["/branchlet-from-bead"]
+        Context["/context (Load Artifacts)"]
+    end
+    Backlog --> PickWork
+    PickWork --> Worktree
+    Worktree --> Context
+    
+    subgraph "3. Planning"
+        Research["/research"]
+        Plan["/plan (Oracle)"]
+        Approve{Human Approve?}
+        Split["/split (Optional)"]
+    end
+    Context --> Research
+    Research --> Plan
+    Plan --> Approve
+    Approve -- No --> Plan
+    Approve -- Yes --> Split
+    
+    subgraph "4. Implementation"
+        Implement["/implement (Sub-agents)"]
+        Compact["/compact (Save Session)"]
+        Verify{Tests Pass?}
+    end
+    Split --> Implement
+    Approve -- Yes --> Implement
+    Implement --> Compact
+    Compact --> Implement
+    Implement --> Verify
+    Verify -- No --> Implement
+    
+    subgraph "5. Review & Merge"
+        Land["/land-plane"]
+        Merge[Merge PR]
+        Cleanup["branchlet delete"]
+    end
+    Verify -- Yes --> Land
+    Land --> Merge
+    Merge --> Cleanup
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Backlog fill:#eee,stroke:#333,stroke-width:2px
+    style Approve fill:#ff9,stroke:#333,stroke-width:2px
+    style Verify fill:#ff9,stroke:#333,stroke-width:2px
+```
+
 ## 1. Ideation & Triage (Human + Agent)
 - **Start**: User identifies a need.
 - **Agent Action**: Run `/bd-create`.

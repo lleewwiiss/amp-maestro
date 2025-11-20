@@ -9,7 +9,7 @@ It utilizes **Beads** (Issue Tracking) and **Branchlet** (Worktrees) for state-o
 This workflow implements the **"Frequent Intentional Compaction"** methodology championed by HumanLayer.
 
 ```mermaid
-graph LR
+graph TD
     %% Styling for Dark Mode / High Contrast
     classDef default fill:#2d2d2d,stroke:#fff,stroke-width:2px,color:#fff;
     classDef bead fill:#b45309,stroke:#fff,stroke-width:2px,color:#fff; %% Orange/Brown

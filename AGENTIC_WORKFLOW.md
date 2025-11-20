@@ -21,16 +21,13 @@ graph TD
         PickWork["/bd-next or Pick from Backlog"]
         Worktree["/branchlet-from-bead"]
         Context["/context (Load Artifacts)"]
+        Knowledge["/kb-build (Optional)"]
     end
     Backlog --> PickWork
     PickWork --> Worktree
     Worktree --> Context
-    
-    subgraph "3. Planning"
-        Research["/research"]
-        Plan["/plan (Oracle)"]
-        Approve{Human Approve?}
-    end
+    Context --> Knowledge
+    Knowledge --> Research
     Context --> Research
     Research --> Plan
     Plan --> Approve
@@ -60,54 +57,51 @@ graph TD
     class Approve,Verify decision;
 ```
 
-## 1. Ideation & Triage (Human + Agent)
-- **Start**: User identifies a need.
-- **Agent Action**: Run `/bd-create`.
+## 1. Ideation & Triage
+- **User**: Run `/bd-create` (or identify a need).
+- **Agent**: 
   - Interviews user to understand scope.
   - Generates title/priority/type.
   - Identifies lineage (blocks/discovered-from).
-- **Output**: A Bead ID (e.g., `bd-a1b2`) exists in the backlog.
+- **Outcome**: A Bead ID (e.g., `bd-a1b2`) exists in the backlog.
 
-## 2. Setup & Context (Agent)
-- **Trigger**: User asks agent to start work on `bd-a1b2`.
-- **Agent Action**: Ask user: "Use a dedicated worktree (Branchlet) or standard feature branch?"
-  - **Worktree**: Run `/branchlet-from-bead bd-a1b2`. (Recommended for deep work).
-  - **Feature Branch**: Run `git switch -c feature/bd-a1b2-...`. (Simpler).
-- **Context Loading**: Run `/context bd-a1b2` to load artifacts if resuming.
-- **Agent Action**: Run `/spec bd-a1b2` (Optional but recommended).
-  - Refines Bead into a formal `spec.md`.
-- **Agent Action**: Run `/research bd-a1b2`.
-  - Scans codebase, creates `.beads/artifacts/bd-a1b2/research.md`.
-  - Links research to Bead description.
+## 2. Setup & Context
+- **User**: Run `/bd-next` to pick a task.
+- **Agent**: Proposes top candidates. User selects `bd-a1b2`.
+- **User**: Run `/branchlet-from-bead bd-a1b2` (Recommended) or switch branch.
+- **User**: Run `/context bd-a1b2`.
+  - **Agent**: Loads existing artifacts and summarizes state.
+- **User (Optional)**: Run `/kb-build`.
+  - **Agent**: Scans codebase to build/update shared architecture docs in `.beads/kb/`.
 
-## 3. Planning (Agent + Oracle)
-- **Trigger**: Research complete.
-- **Agent Action**: Run `/plan bd-a1b2`.
-  - Reads `research.md`.
-  - **Delegates to Oracle** for complex reasoning.
-  - Creates `.beads/artifacts/bd-a1b2/plan.md`.
-  - Breaks work into steps.
-- **Gate**: **HUMAN APPROVAL REQUIRED** on `plan.md`.
-- **Split**: If plan is too big, run `/split bd-a1b2` to create child beads.
+## 3. Research & Spec (Start New Thread)
+- **User**: Run `/spec bd-a1b2` (Optional but recommended).
+  - **Agent**: Refines Bead into a formal `spec.md`.
+- **User**: Run `/research bd-a1b2`.
+  - **Agent**: Scans codebase (and KB), creates `.beads/artifacts/bd-a1b2/research.md`.
 
-## 4. Implementation (Manager + Subagents)
-- **Trigger**: Plan approved.
-- **Agent Action**: Run `/implement bd-a1b2`.
-  - Acts as **Manager**.
-  - Spawns **Subagents (Task tool)** for each plan step (edit/test).
-  - Updates Bead status to `in_progress`.
-  - Keeps context window clean.
+## 4. Planning (Start New Thread)
+- **User**: Run `/plan bd-a1b2`.
+  - **Agent (Oracle)**: reasoning -> `.beads/artifacts/bd-a1b2/plan.md`.
+- **Gate**: **HUMAN APPROVAL REQUIRED** on the plan.
+- **User (Optional)**: Run `/split bd-a1b2` if plan is too large.
 
-## 5. Review & Merge (Agent + Human)
-- **Trigger**: Implementation complete, tests pass (`pnpm run check`).
-- **Agent Action**: Run `/land-plane`.
-  - Runs linters/tests one last time.
-  - `bd sync` to save issue state.
-  - Pushes branch to remote.
-- **Human Action**: Merge Pull Request (GitHub/GitLab).
-- **Cleanup**: `branchlet delete` (removes worktree).
+## 5. Implementation (Start New Thread)
+- **User**: Run `/implement bd-a1b2`.
+  - **Agent (Manager)**: Spawns **Subagents** for each plan step.
+  - **Agent**: Updates status to `in_progress`.
+  - **Agent**: Verifies builds/tests.
 
-## 6. Parallelism & Swarms (Epic Structure)
+## 6. Review & Merge (Start New Thread)
+- **Trigger**: Implementation complete, tests pass.
+- **User**: Run `/land-plane`.
+  - **Agent**: Runs final linters/tests.
+  - **Agent**: `bd sync` to save issue state.
+  - **Agent**: Pushes branch.
+- **User**: Merge Pull Request.
+- **User**: `branchlet delete` (cleanup).
+
+## 7. Parallelism & Swarms (Epic Structure)
 To complete Epics faster, structure Beads for **maximum parallel agent execution**:
 
 1.  **The "Epic" Bead (The Manager)**
@@ -126,7 +120,7 @@ To complete Epics faster, structure Beads for **maximum parallel agent execution
     - **Agent Swarm**: You can launch multiple terminal tabs, creating a `branchlet` for each Task, and run `/implement` in parallel.
 
 
-## 7. Context Hygiene
+## 8. Context Hygiene
 To ensure maximum reliability and avoid context window pollution:
 - **Always start a new Amp thread** after running a slash command (e.g., after `/plan` finishes, start a new thread for `/implement`).
 - This ensures the agent focuses only on the current step's artifacts (`plan.md`, `research.md`) without being distracted by the conversation history of previous steps.

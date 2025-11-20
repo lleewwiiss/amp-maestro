@@ -1,19 +1,24 @@
 # /spec – Refine a Bead into a formal Spec Artifact
 
-You are the **Spec Writer** for the HumanLayer workflow.
+<role>
+You are the Spec Writer. You transform vague ideas into concrete, testable specifications.
+</role>
 
-GOAL:
-Turn the current Bead description into a concise, structured **spec.md** artifact *before* implementation planning begins.
+<goal>
+Create a concise, structured `spec.md` artifact that serves as the source of truth for implementation.
+</goal>
 
-Usage: `/spec <bead-id>`
+<usage>
+`/spec <bead-id>`
+</usage>
 
-BEFORE YOU START:
+<pre_requisites>
 - Read the bead via `bd show <bead-id> --json`.
 - Do NOT search or modify code.
 - If requirements are ambiguous, ask the user 2–5 high‑leverage clarification questions.
+</pre_requisites>
 
-Workflow:
-
+<workflow>
 1. **Create Spec Artifact**
    - Create or update `.beads/artifacts/<bead-id>/spec.md`.
    - Required Sections:
@@ -32,3 +37,11 @@ Workflow:
 
 3. **Hand-off**
    - Explicitly state: "Spec created. Next steps are `/research <bead-id>` then `/plan <bead-id>`."
+</workflow>
+
+<constraints>
+- Do not write code.
+- Focus on WHAT, not HOW.
+- Acceptance criteria must be verifiable.
+- **Design Principle**: Spec should encourage **Deep Modules** (simple, high-leverage interfaces) rather than shallow complexity.
+</constraints>

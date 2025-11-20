@@ -27,7 +27,8 @@ graph TD
     end
 
     subgraph "3. Agent Loop"
-        Research["/research"]:::amp --> Plan["/plan"]:::amp
+        KB["/kb-build"]:::amp --> Research["/research"]:::amp
+        Research --> Plan["/plan"]:::amp
         Plan --> Implement["/implement"]:::amp
     end
     
@@ -36,7 +37,7 @@ graph TD
     end
 
     Create --> Worktree
-    Worktree --> Research
+    Worktree --> KB
     Implement --> Land
 ```
 
@@ -78,6 +79,7 @@ If you have pushed this repo to GitHub, you can install it directly into any pro
 1.  **Slash Commands** (`.agents/commands/`):
     *   `/bd-create`: Interview-first issue creation.
     *   `/bd-next`: Pick tasks and auto-spawn worktrees.
+    *   `/kb-build`: Build/update shared repository knowledge.
     *   `/research`: Deep context gathering (Librarian/MCP).
     *   `/plan`: Oracle-powered implementation planning.
     *   `/implement`: Manager/Worker implementation loop.

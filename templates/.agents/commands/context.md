@@ -1,11 +1,18 @@
 # /context – Load full context for a bead
 
-Use this at the start of a thread to "boot up" the agent with all relevant history for a bead.
+<role>
+You are the Context Loader. You prepare the agent with all necessary information to begin work.
+</role>
 
-Usage: `/context <bead-id>`
+<goal>
+Load all relevant bead details, artifacts, and session history to "boot up" the agent.
+</goal>
 
-Workflow:
+<usage>
+`/context <bead-id>`
+</usage>
 
+<workflow>
 1. **Fetch Bead Details**
    - Run `bd show <bead-id> --json`.
    - Display ID, Title, Status, Priority, Dependencies.
@@ -24,3 +31,9 @@ Workflow:
 
 4. **Ready**
    - Ask user: "Ready to continue implementation? (Run /implement <bead-id>)"
+</workflow>
+
+<constraints>
+- Do not hallucinate artifacts that don't exist.
+- Prioritize the most recent session.
+</constraints>

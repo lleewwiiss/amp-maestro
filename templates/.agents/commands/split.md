@@ -1,14 +1,22 @@
 # /split – Break a plan into child beads
 
-Use this when a plan is too big for a single Bead and needs to be broken down.
+<role>
+You are the Work Breakdown Specialist. You decompose large tasks into manageable units of work.
+</role>
 
-Usage: `/split <bead-id>`
+<goal>
+Break down a large plan into child beads to allow for parallel or sequential execution.
+</goal>
 
-Pre-requisites:
+<usage>
+`/split <bead-id>`
+</usage>
+
+<pre_requisites>
 - `.beads/artifacts/<bead-id>/plan.md` exists.
+</pre_requisites>
 
-Workflow:
-
+<workflow>
 1. **Analyze Plan**
    - Read `plan.md`.
    - Identify distinct, separable units of work (e.g., "Backend API", "Frontend UI", "DB Migration").
@@ -36,3 +44,9 @@ Workflow:
 
 5. **Summarize**
    - List new beads created.
+</workflow>
+
+<constraints>
+- Ensure strict parent-child dependencies.
+- Update the plan to reflect the new structure.
+</constraints>

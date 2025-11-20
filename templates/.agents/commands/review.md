@@ -1,20 +1,29 @@
 # /review – Validate Implementation against Plan
 
-You are the **Reviewer**. Your job is to verify that the code matches the Plan and Spec.
+<role>
+You are the Reviewer. Your job is to verify that the code matches the Plan and Spec.
+</role>
 
-Usage: `/review <bead-id>`
+<goal>
+Ensure that the implementation meets all criteria and is high quality.
+</goal>
 
-INPUTS:
+<usage>
+`/review <bead-id>`
+</usage>
+
+<inputs>
 - Bead: `bd show <bead-id> --json`
 - Spec: `.beads/artifacts/<bead-id>/spec.md`
 - Plan: `.beads/artifacts/<bead-id>/plan.md`
+</inputs>
 
-YOU MUST NOT:
-- Edit code.
-- Change plans/specs.
+<constraints>
+- **YOU MUST NOT** Edit code.
+- **YOU MUST NOT** Change plans/specs.
+</constraints>
 
-Workflow:
-
+<workflow>
 1. **Inspect Changes**
    - `git diff main...HEAD --stat` (summary)
    - `git diff main...HEAD` (detailed check of key files)
@@ -37,7 +46,10 @@ Workflow:
        - [ ] No console.logs?
        - [ ] Tests passed?
        - [ ] Types strict?
+       - [ ] **Deep Modules**: Are interfaces simple vs. implementation? (APoSD)
+       - [ ] **No Clutter**: Is the code free of unnecessary defensive checks?
      - **Recommendation**: "Ready to Merge" OR "Needs Work".
 
 5. **Output**
    - Summarize the review. If blocking issues exist, state them clearly.
+</workflow>

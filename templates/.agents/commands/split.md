@@ -49,4 +49,5 @@ Break down a large plan into child beads to allow for parallel or sequential exe
 <constraints>
 - Ensure strict parent-child dependencies.
 - Update the plan to reflect the new structure.
+- **Right-sizing**: Child beads should be implementable in < 20 minutes by an agent (atomic units).
 </constraints>

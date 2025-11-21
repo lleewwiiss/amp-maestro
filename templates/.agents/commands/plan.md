@@ -60,17 +60,24 @@ Create a high-quality implementation plan in `.beads/artifacts/<bead-id>/plan.md
      ```
    - Update status to `in_progress` if not already: `bd update <bead-id> --status in_progress --json`.
 
-5. **Human Review**
-   - Show the plan to the user.
-   - **HUMAN-IN-THE-LOOP**: Ask "Does this plan look correct? Should I break any steps into child beads?"
+5. **Mandatory Split Decision**
+   - **Analyze**: You MUST classify the plan as **Atomic** or **Composite**.
+     - **Atomic**: Fits in one context window (< 5 steps, < 5 files).
+     - **Composite**: Too large, risks hallucination or timeout.
+   - **Action**:
+     - If **Composite**: You MUST recommend running `/split`. State: "Plan is Composite. Splitting is required."
+     - If **Atomic**: State: "Plan is Atomic. Ready for implementation."
+   - **HUMAN-IN-THE-LOOP**:
+     - "Plan Analysis: [Atomic/Composite]"
+     - If Composite: "I will now run `/split` to create X child tasks. Approve?"
+     - If Atomic: "Approve plan?"
    - If split requested:
      - Run `/split <bead-id>`.
-     - `/split` will create new beads with `--deps blocks:<bead-id>`.
-     - Update `plan.md` to reference the new child IDs.
-     - Update parent Bead status to `blocked` (since it waits for children).
+     - Update parent Bead status to `blocked`.
 
-6. **Ready to Implement**
-   - Once approved, suggest running `/implement <bead-id>`.
+6. **Next Steps**
+   - **If Atomic**: Suggest running `/implement <bead-id>`.
+   - **If Split**: Suggest running `/bd-next` to pick up the first child bead.
 </workflow>
 
 <constraints>

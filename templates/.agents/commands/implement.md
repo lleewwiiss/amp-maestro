@@ -29,7 +29,10 @@ Execute the steps in `plan.md` efficiently and correctly, maintaining the bead's
 1. **Manager Mode (Main Thread)**
    - Load `plan.md`.
    - Identify the next uncompleted step.
-   - For each step:
+   - **Atomic Execution**:
+     - Execute **ONLY ONE** step at a time.
+     - Do not batch multiple steps unless they are trivial.
+   - For the current step:
      - Clarify objective.
      - **Spawn a Subagent (Task tool)** to do the work.
      - Update Bead status to `in_progress`.
@@ -86,6 +89,7 @@ Execute the steps in `plan.md` efficiently and correctly, maintaining the bead's
 - Verify each step before moving to the next.
 
 - **Anti-Loop / Anti-Stall**
+  - **Strict Step Limit**: If a subagent takes more than 3 attempts to complete a step, **STOP**. The plan is likely too vague or the task is too big. Suggest splitting or refining the plan.
   - If `spec.md`, `research.md`, and `plan.md` provide enough information, **EXECUTE IMMEDIATELY**. Do **not** ask the user to confirm every minor decision.
   - Do **not** re-run `/research` or `/plan` from scratch during `/implement`. If you discover missing info, update the existing artifacts minimally and continue.
   - Do not spawn subagents whose only job is to re-summarize the same files without making progress.

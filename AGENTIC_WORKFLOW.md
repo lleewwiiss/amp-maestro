@@ -30,16 +30,19 @@ graph TD
     Knowledge --> Research
     Context --> Research
     Research --> Plan
-    Plan --> Approve
+    Plan --> Complexity{Atomic?}
+    
+    Complexity -- No (Composite) --> Split["/split"]
+    Complexity -- Yes (Atomic) --> Approve
+    
     Approve -- No --> Plan
+    Split --> Blocked[Parent Blocked]
     
     subgraph "4. Implementation"
-        Split["/split (Optional)"]
         Implement["/implement (Sub-agents)"]
         Verify{Tests Pass?}
     end
-    Approve -- Yes --> Split
-    Split --> Implement
+    
     Approve -- Yes --> Implement
     Implement --> Verify
     Verify -- No --> Implement
@@ -83,8 +86,9 @@ graph TD
 ## 4. Planning (Start New Thread)
 - **User**: Run `/plan bd-a1b2`.
   - **Agent (Oracle)**: reasoning -> `.beads/artifacts/bd-a1b2/plan.md`.
-- **Gate**: **HUMAN APPROVAL REQUIRED** on the plan.
-- **User (Optional)**: Run `/split bd-a1b2` if plan is too large.
+- **Split Decision**: Agent analyzes complexity.
+  - **Composite**: Agent runs `/split` to create child beads. Parent becomes blocked.
+  - **Atomic**: Plan is approved for immediate implementation.
 
 ## 5. Implementation (Start New Thread)
 - **User**: Run `/implement bd-a1b2`.

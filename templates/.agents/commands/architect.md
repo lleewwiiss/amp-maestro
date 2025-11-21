@@ -35,3 +35,19 @@ Create or update architecture diagrams and decision records to ensure the system
   - **Define Errors Away**: Design interfaces that make errors impossible rather than just catching them.
   - **Orthogonality**: Keep components decoupled and independent (Pragmatic Programmer).
 </constraints>
+
+<examples>
+## Deep vs Shallow Modules
+❌ **Shallow (Bad)**:
+`class FileRead { read(path) { fs.read(path) } }` // Just passes through to underlying API
+
+✅ **Deep (Good)**:
+`class ConfigLoader { load() { /* handles searching, parsing, defaults, env overrides, and validation internally */ } }` // Simple call, complex work
+
+## Designing Errors Away
+❌ **Exception-Heavy**:
+`function get(id) { if (!exists(id)) throw NotFound; }`
+
+✅ **Impossible State**:
+`function get(id): Option<Value>` // Forces caller to handle absence, or API simply returns different type
+</examples>

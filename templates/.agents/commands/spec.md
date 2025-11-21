@@ -47,3 +47,14 @@ Create a concise, structured `spec.md` artifact that serves as the source of tru
 - **Anti-Slop**: Do not spec out unrequested "nice-to-have" features or UI embellishments. Stick to the core user need.
 </constraints>
 
+<examples>
+## Verifiable Acceptance Criteria
+❌ **Vague (Bad)**:
+- "The page should load quickly."
+- "Handle errors gracefully."
+
+✅ **Verifiable (Good)**:
+- "The LCP (Largest Contentful Paint) must be under 1.2s on 4G networks."
+- "When the API returns 500, show the `ErrorBanner` component with the message 'Try again later'."
+</examples>
+

@@ -99,4 +99,13 @@ Execute the steps in `plan.md` efficiently and correctly, maintaining the bead's
   - **Concise**: Write the simplest code that works. Avoid verbose boilerplate.
   - **Deep Comments**: Comments should explain *why* (intent) and *what* (abstraction), never *how* (implementation details).
   - **DRY**: Do not duplicate logic. Refactor if you see repetition.
+  - **Strictly No Slop**:
+    - **No "Helpful" UI**: Do NOT add tooltips, placeholders, labels, or "explanatory text" that wasn't requested.
+    - **No Defensive/Fallback Clutter**: 
+      - Do NOT add `|| {}`, `|| ""`, `?? null` unless strictly necessary for type safety.
+      - Do NOT wrap code in `try/catch` blocks that swallow errors or just log them. Let the application crash or handle it at the boundary.
+    - **No Fake Fixes**: Do not make up values or types just to satisfy the compiler. If you are stuck, ask.
+    - **No Comment Noise**: Delete `// TODO`s you finished. Do NOT add comments like `// importing React`.
+    - **Fidelity**: When refactoring, keep all original string literals and logic exactly as they were.
+
 </constraints>

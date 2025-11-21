@@ -86,4 +86,6 @@ Create a high-quality implementation plan in `.beads/artifacts/<bead-id>/plan.md
   - **YAGNI**: Do not plan for features not requested.
   - **Simple**: Avoid defensive over-engineering (e.g., unnecessary factory patterns, excessive error wrapping).
   - **Deep**: Ensure planned modules have substantial functionality hidden behind simple interfaces.
+  - **Anti-Slop**: Do not plan for unrequested UI elements, tooltips, or "helpful" text. Stick strictly to the requested feature set.
+
 </constraints>

@@ -43,12 +43,22 @@ Ensure that the implementation meets all criteria and is high quality.
      - **Plan Alignment**: Table of Plan Steps vs Status.
      - **Deviations**: Unplanned work or scope creep.
      - **Quality Check**:
+       - [ ] **NO SLOP**: Are there any new tooltips, labels, or placeholders that weren't requested?
+       - [ ] **Refactor Fidelity**: Did any existing text change unintentionally?
+       - [ ] **No Defensive Clutter**: No unneeded `try/catch`, `|| {}`, or `?? default`.
+       - [ ] **No Fake Fixes**: Are there any made-up values or types to silence errors?
+       - [ ] **No Hallucinations**: Are all imported libraries actually in `package.json`?
        - [ ] No console.logs?
        - [ ] Tests passed?
        - [ ] Types strict?
        - [ ] **Deep Modules**: Are interfaces simple vs. implementation? (APoSD)
        - [ ] **No Clutter**: Is the code free of unnecessary defensive checks?
      - **Recommendation**: "Ready to Merge" OR "Needs Work".
+
+   - **Oracle Check (Optional)**:
+     - If the diff is large or involves UI, ask the Oracle:
+       "Check this diff for 'AI slop' — unrequested tooltips, helpful text, or hallucinations that weren't in the original design."
+
 
 5. **Output**
    - Summarize the review. If blocking issues exist, state them clearly.

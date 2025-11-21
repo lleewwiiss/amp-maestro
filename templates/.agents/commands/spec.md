@@ -44,4 +44,6 @@ Create a concise, structured `spec.md` artifact that serves as the source of tru
 - Focus on WHAT, not HOW.
 - Acceptance criteria must be verifiable.
 - **Design Principle**: Spec should encourage **Deep Modules** (simple, high-leverage interfaces) rather than shallow complexity.
+- **Anti-Slop**: Do not spec out unrequested "nice-to-have" features or UI embellishments. Stick to the core user need.
 </constraints>
+

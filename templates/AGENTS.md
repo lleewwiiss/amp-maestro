@@ -3,6 +3,13 @@
 ## Project Overview
 <!-- User: Add a brief description of your project here -->
 
+## Preferred Libraries
+<!-- User: Add your preferred libraries here to prevent AI hallucinations -->
+- **State Management**: `[e.g. Zustand, Redux]`
+- **Styling**: `[e.g. Tailwind, CSS Modules]`
+- **Data Fetching**: `[e.g. TanStack Query, SWR]`
+- **Testing**: `[e.g. Vitest, Jest, Playwright]`
+
 ## Build, Lint, Test Commands
 <!-- User: specific commands for your project. If empty, Agent should inspect package.json/Makefile. -->
 - **Build**: `[Inspect package.json/Makefile]`
@@ -48,6 +55,34 @@ See [AGENTIC_WORKFLOW.md](./AGENTIC_WORKFLOW.md) for the full protocol (Ideation
 - **Types**: Avoid `any` or `unknown` where possible. Be explicit.
 - **Comments**: Only comment complex logic; code should be self-documenting.
 - **Secrets**: NEVER commit secrets or keys.
+- **Anti-Slop & Anti-Patterns**: 
+  - **No Unrequested UI**: NEVER add "helpful" text, tooltips, placeholders, or labels unless explicitly in the spec.
+  - **No Defensive Clutter**: Do not add `try/catch` or default fallbacks (e.g., `|| {}`) unless the type system or logic explicitly demands it. Let errors bubble up.
+  - **No "Helpful" Comments**: Do not explain *what* the code does (e.g., `// Loop through items`). Only explain *why* complex logic exists.
+  - **No Library Hallucinations**: Never import a library without checking `package.json` first.
+  - **Preserve Fidelity**: If refactoring, keep original text/logic exactly as is. Do not "fix" things you weren't asked to fix.
+
+## Anti-Slop Examples
+
+❌ **Bad (Defensive Slop)**:
+```typescript
+const getName = (user: any) => {
+  try {
+    // Helpful comment: getting name
+    return user?.name || "Unknown"; // Defensive noise
+  } catch (e) {
+    console.log(e); // Swallowed error
+    return "";
+  }
+}
+```
+
+✅ **Good (Clean)**:
+```typescript
+const getName = (user: User): string => {
+  return user.name;
+}
+```
 
 ## Testing & Verification
 - Test early and often.

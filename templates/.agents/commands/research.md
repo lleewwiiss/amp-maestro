@@ -29,8 +29,10 @@ Gather all necessary context and save it to `.beads/artifacts/<bead-id>/research
    - **MANDATORY**: You MUST create or update `.beads/artifacts/<bead-id>/research.md`. If the file exists, read it first, then append or update with new findings. If it doesn't exist, create it.
 
 3. **Conduct Research (Leverage Amp Tools)**
+   - **Codebase is King**: Your primary source of truth is the existing code.
+   - **Citation Rule**: Every claim in `research.md` must cite a specific file path and line range. Do not generalize.
    - **Local Code**: Explore the codebase using `finder` and `Grep`.
-   - **Libraries (MCP)**: Use `context7` or `mcp__*` tools to fetch up-to-date docs for any libraries involved (e.g., Prisma, Next.js).
+   - **Libraries**: Check `package.json` (or equivalent) BEFORE assuming a library exists. Do not suggest installing new libraries for trivial tasks.
    - **External/Cross-Repo (Librarian)**: If you need to understand upstream dependencies or patterns in other repos, explicitly ask the **Librarian**.
    - **WRITE THE FILE**: Save your findings to `.beads/artifacts/<bead-id>/research.md` using `create_file`.
      - Problem statement / Goals.
